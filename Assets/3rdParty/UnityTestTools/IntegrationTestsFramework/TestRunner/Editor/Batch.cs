@@ -88,6 +88,7 @@ namespace UnityTest
                 ipList = TestRunnerConfigurator.GetAvailableNetworkIPs(),
                 port = PlatformRunnerConfiguration.TryToGetFreePort(),
                 runInEditor = true,
+                sendResultsOverNetwork = false
             };
 
             var settings = new PlayerSettingConfigurator(true);
@@ -136,7 +137,7 @@ namespace UnityTest
         private static List<string> FindTestScenesInProject()
         {
             var integrationTestScenePattern = "*Test?.unity";
-            return Directory.GetFiles("Assets", integrationTestScenePattern, SearchOption.AllDirectories).ToList();
+            return Directory.GetFiles("Assets", integrationTestScenePattern, SearchOption.AllDirectories).OrderBy<string, string>(Path.GetFileNameWithoutExtension).ToList();
         }
 
         private static List<string> GetTestScenesList()
