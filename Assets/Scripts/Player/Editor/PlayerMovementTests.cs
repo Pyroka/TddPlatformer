@@ -26,5 +26,16 @@ namespace Player
             var result = movement.Update();
             result.y.Should().Be(0.0f);
         }
+
+        [Test]
+        public void ShouldAccelerateWhilstFalling()
+        {
+            var movement = new PlayerMovement { IsOnGround = true };
+
+            var firstResult = movement.Update();
+            var secondResult = movement.Update();
+
+            secondResult.y.Should().BeLessThan(firstResult.y);
+        }
     }
 }
