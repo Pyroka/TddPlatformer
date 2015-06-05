@@ -7,15 +7,17 @@ public class PlayerMovement
 
     public bool IsOnGround { get; set; }
 
-    private Vector3 currentVelocity;
+    public Vector3 CurrentVelocity { get; private set; }
 
-    public Vector3 Update()
+    public void Update()
     {
         if (IsOnGround)
         {
-            return Vector2.zero;
+            CurrentVelocity = Vector2.zero;
         }
-        currentVelocity += new Vector3(0.0f, Gravity);
-        return currentVelocity;
+        else
+        {
+            CurrentVelocity += new Vector3(0.0f, Gravity);
+        }
     }
 }

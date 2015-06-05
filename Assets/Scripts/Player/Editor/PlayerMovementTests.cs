@@ -14,8 +14,9 @@ namespace Player
         {
             var movement = new PlayerMovement {IsOnGround = false};
 
-            var result = movement.Update();
-            result.y.Should().BeLessThan(0.0f);
+            movement.Update();
+
+            movement.CurrentVelocity.y.Should().BeLessThan(0.0f);
         }
 
         [Test]
@@ -23,8 +24,9 @@ namespace Player
         {
             var movement = new PlayerMovement { IsOnGround = true };
 
-            var result = movement.Update();
-            result.y.Should().Be(0.0f);
+            movement.Update();
+
+            movement.CurrentVelocity.y.Should().Be(0.0f);
         }
 
         [Test]
@@ -32,10 +34,11 @@ namespace Player
         {
             var movement = new PlayerMovement { IsOnGround = false };
 
-            var firstResult = movement.Update();
-            var secondResult = movement.Update();
+            movement.Update();
+            var firstResult = movement.CurrentVelocity;
+            movement.Update();
 
-            secondResult.y.Should().BeLessThan(firstResult.y);
+            movement.CurrentVelocity.y.Should().BeLessThan(firstResult.y);
         }
     }
 }
