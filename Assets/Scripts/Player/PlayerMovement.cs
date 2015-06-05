@@ -7,6 +7,6 @@ public class PlayerMovement
 
     public Vector3 Update()
     {
-        return Vector3.zero;
+        return new Vector3(0.0f, -1.0f);
     }
 }
