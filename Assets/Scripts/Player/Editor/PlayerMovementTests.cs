@@ -17,5 +17,14 @@ namespace Player
             var result = movement.Update();
             result.y.Should().BeLessThan(0.0f);
         }
+
+        [Test]
+        public void ShouldNotFallIfOnGround()
+        {
+            var movement = new PlayerMovement { IsOnGround = true };
+
+            var result = movement.Update();
+            result.y.Should().Be(0.0f);
+        }
     }
 }
