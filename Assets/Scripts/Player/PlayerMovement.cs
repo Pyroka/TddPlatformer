@@ -1,13 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 
+[Serializable]
 public class PlayerMovement
 {
     private const float Gravity = -1.0f;
 
     public bool IsOnGround { get; set; }
 
-    public Vector3 CurrentVelocity { get; private set; }
+    public Vector3 CurrentVelocity;
 
     public void Update()
     {
