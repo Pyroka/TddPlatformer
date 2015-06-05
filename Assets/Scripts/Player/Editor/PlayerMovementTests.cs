@@ -30,7 +30,7 @@ namespace Player
         [Test]
         public void ShouldAccelerateWhilstFalling()
         {
-            var movement = new PlayerMovement { IsOnGround = true };
+            var movement = new PlayerMovement { IsOnGround = false };
 
             var firstResult = movement.Update();
             var secondResult = movement.Update();
