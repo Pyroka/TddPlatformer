@@ -9,7 +9,7 @@ public class PlayerMovement
 
     public bool IsOnGround { get; set; }
 
-    public Vector3 CurrentVelocity;
+    public Vector3 CurrentVelocity { get; private set; }
 
     public void Update()
     {
