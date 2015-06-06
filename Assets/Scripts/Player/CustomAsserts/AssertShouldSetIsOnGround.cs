@@ -10,23 +10,23 @@ public class AssertShouldSetIsOnGround : MonoBehaviour
 
     private int numFixedUpdates = 0;
 
-    void Awake()
-    {
-        if (Player.PlayerMovement.IsOnGround)
-        {
-            IntegrationTest.Fail(Player.gameObject, "IsOnGround did not start as false");
-        }
-    }
-
     void FixedUpdate()
     {
-        if (numFixedUpdates == 0)
+        if (numFixedUpdates == 1)
         {
+            if (Player.PlayerMovement.IsOnGround)
+            {
+                IntegrationTest.Fail(Player.gameObject, "IsOnGround did not start as false");
+            }
             TeleportPlayerToGround();
         }
         else if (numFixedUpdates == CheckOnFixedUpdate)
         {
-            if (!Player.PlayerMovement.IsOnGround)
+            if (Player.PlayerMovement.IsOnGround)
+            {
+                IntegrationTest.Pass(Player.gameObject);
+            }
+            else
             {
                 IntegrationTest.Fail(Player.gameObject, "IsOnGround was not set to true after " + CheckOnFixedUpdate + " frames");
             }
