@@ -13,5 +13,9 @@ public class PlayerMovementBehaviour : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
     }
 
-    
+    void FixedUpdate()
+    {
+        PlayerMovement.Update();
+        rigidbody.velocity = PlayerMovement.CurrentVelocity;
+    }
 }
