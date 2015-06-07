@@ -1,37 +1,45 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class AssertShouldSetIsOnGround : MonoBehaviour
 {
     public PlayerMovementBehaviour Player;
     public GameObject Ground;
-    [Range(1, 10)]
-    public int CheckOnFixedUpdate;
 
     private int numFixedUpdates = 0;
 
+    void Awake()
+    {
+        TeleportPlayerToGround();
+    }
+
     void FixedUpdate()
     {
-        if (numFixedUpdates == 1)
+        if (numFixedUpdates == 2)
         {
-            if (Player.PlayerMovement.IsOnGround)
+            if (!Player.PlayerMovement.IsOnGround)
             {
-                IntegrationTest.Fail(Player.gameObject, "IsOnGround did not start as false");
+                IntegrationTest.Fail(Player.gameObject, "IsOnGround was not true when on ground");
             }
-            TeleportPlayerToGround();
+            MovePlayerOffGround();
+
         }
-        else if (numFixedUpdates == CheckOnFixedUpdate)
+        else if (numFixedUpdates == 4)
         {
-            if (Player.PlayerMovement.IsOnGround)
+            if (!Player.PlayerMovement.IsOnGround)
             {
                 IntegrationTest.Pass(Player.gameObject);
             }
             else
             {
-                IntegrationTest.Fail(Player.gameObject, "IsOnGround was not set to true after " + CheckOnFixedUpdate + " frames");
+                IntegrationTest.Fail(Player.gameObject, "IsOnGround was not set to false after moving off ground");
             }
         }
         numFixedUpdates++;
+    }
+
+    private void MovePlayerOffGround()
+    {
+        Player.transform.Translate(Vector3.up * 0.1f);
     }
 
     private void TeleportPlayerToGround()
