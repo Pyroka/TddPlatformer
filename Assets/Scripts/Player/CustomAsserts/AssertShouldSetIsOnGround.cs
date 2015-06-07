@@ -3,7 +3,7 @@
 public class AssertShouldSetIsOnGround : MonoBehaviour
 {
     public PlayerMovementBehaviour Player;
-    public GameObject Ground;
+    public Collider Ground;
 
     private int numFixedUpdates = 0;
 
@@ -44,7 +44,7 @@ public class AssertShouldSetIsOnGround : MonoBehaviour
 
     private void TeleportPlayerToGround()
     {
-        var topOfGround = Ground.GetComponent<BoxCollider>().bounds.max.y;
+        var topOfGround = Ground.bounds.max.y;
         var bottomOfPlayer = Player.GetComponentInChildren<Collider>().bounds.min.y;
         var centerOfPlayer = Player.transform.position.y;
 
