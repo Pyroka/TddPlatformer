@@ -63,7 +63,7 @@ namespace Player
         }
 
         [Test]
-        public void ShouldAccelerateUpToMaxVelocity()
+        public void ShouldAccelerateUpToMaxHorizontalVelocity()
         {
             var movement = new PlayerMovement
             {
@@ -78,7 +78,7 @@ namespace Player
         }
 
         [Test]
-        public void ShouldNotAccelerateAboveMaxVelocity()
+        public void ShouldNotAccelerateAboveMaxHorizontalVelocity()
         {
             const float maxHorizontalSpeed = 10.0f;
             var movement = new PlayerMovement
