@@ -13,7 +13,7 @@ public class PlayerMovement
     public float HorizontalInput { get; set; }
     public float MaxHorizontalSpeed { get; set; }
 
-    public void UpdateCurrentVelocity()
+    public void UpdateCurrentVelocity(float deltaTime)
     {
         var newVelocity = CurrentVelocity;
         if (IsOnGround)

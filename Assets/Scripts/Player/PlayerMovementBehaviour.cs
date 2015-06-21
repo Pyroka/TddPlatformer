@@ -19,7 +19,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     void FixedUpdate()
     {
         GatherWorldState();
-        UpdateAndApplyVelocity();
+        UpdateAndApplyVelocity(Time.fixedDeltaTime);
     }
 
     private void GatherWorldState()
@@ -32,7 +32,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
         return Physics.Raycast(transform.position, -Vector3.up, distToFeet + GroundCheckExtra);
     }
 
-    private void UpdateAndApplyVelocity()
+    private void UpdateAndApplyVelocity(float deltaTime)
     {
         PlayerMovement.UpdateCurrentVelocity();
         rigidbody.velocity = PlayerMovement.CurrentVelocity;
