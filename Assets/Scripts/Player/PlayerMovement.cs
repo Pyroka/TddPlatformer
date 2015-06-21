@@ -15,15 +15,17 @@ public class PlayerMovement
 
     public void Update()
     {
+        var newVelocity = CurrentVelocity;
         if (IsOnGround)
         {
-            CurrentVelocity = Vector2.zero;
+            newVelocity.y = 0.0f;
         }
         else
         {
-            CurrentVelocity += new Vector3(0.0f, Gravity);
+            newVelocity.y += Gravity;
         }
 
-        CurrentVelocity = new Vector3(MaxHorizontalSpeed * HorizontalInput, CurrentVelocity.y);
+        newVelocity.x = MaxHorizontalSpeed * HorizontalInput;
+        CurrentVelocity = newVelocity;
     }
 }
