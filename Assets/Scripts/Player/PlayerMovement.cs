@@ -10,6 +10,8 @@ public class PlayerMovement
     public bool IsOnGround { get; set; }
 
     public Vector3 CurrentVelocity { get; private set; }
+    public float HorizontalInput { get; set; }
+    public float MaxHorizontalSpeed { get; set; }
 
     public void Update()
     {
@@ -21,5 +23,7 @@ public class PlayerMovement
         {
             CurrentVelocity += new Vector3(0.0f, Gravity);
         }
+
+        CurrentVelocity = new Vector3(MaxHorizontalSpeed * HorizontalInput, CurrentVelocity.y);
     }
 }

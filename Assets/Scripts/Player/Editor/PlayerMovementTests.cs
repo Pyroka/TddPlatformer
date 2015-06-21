@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NUnit.Core;
+using UnityEngine;
 using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
@@ -41,14 +42,21 @@ namespace Player
             movement.CurrentVelocity.y.Should().BeLessThan(firstResult.y);
         }
 
-        [Test]
-        public void ShouldMoveLeftWhenHorizontalInputIsPositive()
+        [TestCase(1.0f, 10.0f, 10.0f, TestName = "Full Speed Left")]
+        [TestCase(0.5f, 10.0f, 5.0f, TestName = "Half Speed Left")]
+        [TestCase(-0.5f, 10.0f, -5.0f, TestName = "Half Speed Right")]
+        [TestCase(-1.0f, 10.0f, -10.0f, TestName = "Full Speed Right")]
+        public void ShouldRespondToHorizontalInput(float input, float maxSpeed, float expectedResult)
         {
-            var movement = new PlayerMovement {HorizontalInput = 1.0f};
+            var movement = new PlayerMovement
+            {
+                HorizontalInput = input,
+                MaxHorizontalSpeed = maxSpeed
+            };
 
             movement.Update();
 
-            movement.CurrentVelocity.y.Should().BeApproximately(movement.MaxHorizontalSpeed, 0.1f);
+            movement.CurrentVelocity.x.Should().BeApproximately(expectedResult, 0.1f);
         }
     }
 }
