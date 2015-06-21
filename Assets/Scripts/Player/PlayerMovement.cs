@@ -12,6 +12,7 @@ public class PlayerMovement
     public Vector3 CurrentVelocity { get; private set; }
     public float HorizontalInput { get; set; }
     public float MaxHorizontalSpeed { get; set; }
+    public float HorizontalAcceleration { get; set; }
 
     public void UpdateCurrentVelocity()
     {
