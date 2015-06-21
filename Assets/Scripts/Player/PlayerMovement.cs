@@ -26,7 +26,9 @@ public class PlayerMovement
             newVelocity.y += (Gravity * deltaTime);
         }
 
-        newVelocity.x = MaxHorizontalSpeed * HorizontalInput;
+        var desiredXVelocity = MaxHorizontalSpeed * HorizontalInput;
+        var xVelocityDifference = desiredXVelocity - CurrentVelocity.x;
+        newVelocity.x = xVelocityDifference * (deltaTime / AccelerationTime);
         CurrentVelocity = newVelocity;
     }
 }
