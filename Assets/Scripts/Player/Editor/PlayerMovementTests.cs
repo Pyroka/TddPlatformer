@@ -42,24 +42,21 @@ namespace Player
             movement.CurrentVelocity.y.Should().BeLessThan(firstResult.y);
         }
 
-        [TestCase(1.0f, 10.0f, 0.5f, 5.0f, 10.0f, TestName = "Full Speed Left")]
-        [TestCase(0.5f, 10.0f, 0.5f, 2.5f, 5.0f, TestName = "Half Speed Left")]
-        [TestCase(-0.5f, 10.0f, 0.5f, -2.5f, -5.0f, TestName = "Half Speed Right")]
-        [TestCase(-1.0f, 10.0f, 0.5f, -5.0f, -10.0f, TestName = "Full Speed Right")]
-        public void ShouldRespondToHorizontalInput(float input, float maxSpeed, float acceleration, float expectedResultAfterFirstUpdate, float expectedResultAfterSecondUpdate)
+        [TestCase(1.0f, 10.0f, 10.0f, TestName = "Full Speed Left")]
+        [TestCase(0.5f, 10.0f, 5.0f, TestName = "Half Speed Left")]
+        [TestCase(-0.5f, 10.0f, -5.0f, TestName = "Half Speed Right")]
+        [TestCase(-1.0f, 10.0f, -10.0f, TestName = "Full Speed Right")]
+        public void ShouldRespondToHorizontalInput(float input, float maxSpeed, float expectedResult)
         {
             var movement = new PlayerMovement
             {
                 HorizontalInput = input,
-                MaxHorizontalSpeed = maxSpeed,
-                HorizontalAcceleration = acceleration
+                MaxHorizontalSpeed = maxSpeed
             };
 
             movement.UpdateCurrentVelocity();
-            movement.CurrentVelocity.x.Should().BeApproximately(expectedResultAfterFirstUpdate, 0.1f, "that is the value expected after the first update");
 
-            movement.UpdateCurrentVelocity();
-            movement.CurrentVelocity.x.Should().BeApproximately(expectedResultAfterSecondUpdate, 0.1f, "that is the value expected after the second update");
+            movement.CurrentVelocity.x.Should().BeApproximately(expectedResult, 0.1f);
         }
     }
 }
