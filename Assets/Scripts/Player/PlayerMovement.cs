@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [Serializable]
 public class PlayerMovement
 {
-    private const float Gravity = -1.0f;
+    public const float Gravity = -1.0f;
 
     public bool IsOnGround { get; set; }
 

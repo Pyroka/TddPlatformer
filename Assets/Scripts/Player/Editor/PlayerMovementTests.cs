@@ -10,12 +10,14 @@ namespace Player
     [Category("Player")]
     internal class PlayerMovementTests
     {
+        private const float SomeDeltaTime = 0.25f;
+
         [Test]
         public void ShouldFallIfNotOnGround()
         {
             var movement = new PlayerMovement {IsOnGround = false};
 
-            movement.UpdateCurrentVelocity();
+            movement.UpdateCurrentVelocity(SomeDeltaTime);
 
             movement.CurrentVelocity.y.Should().BeLessThan(0.0f);
         }
@@ -25,7 +27,7 @@ namespace Player
         {
             var movement = new PlayerMovement { IsOnGround = true };
 
-            movement.UpdateCurrentVelocity();
+            movement.UpdateCurrentVelocity(SomeDeltaTime);
 
             movement.CurrentVelocity.y.Should().Be(0.0f);
         }
@@ -35,11 +37,12 @@ namespace Player
         {
             var movement = new PlayerMovement { IsOnGround = false };
 
-            movement.UpdateCurrentVelocity();
+            movement.UpdateCurrentVelocity(SomeDeltaTime);
             var firstResult = movement.CurrentVelocity;
-            movement.UpdateCurrentVelocity();
+            movement.UpdateCurrentVelocity(SomeDeltaTime);
 
-            movement.CurrentVelocity.y.Should().BeLessThan(firstResult.y);
+            var accelerationDueToGravity = movement.CurrentVelocity.y - firstResult.y;
+            accelerationDueToGravity.Should().BeApproximately(PlayerMovement.Gravity * SomeDeltaTime, 0.1f);
         }
 
         [TestCase(1.0f, 10.0f, 10.0f, TestName = "Full Speed Left")]
@@ -54,7 +57,7 @@ namespace Player
                 MaxHorizontalSpeed = maxSpeed
             };
 
-            movement.UpdateCurrentVelocity();
+            movement.UpdateCurrentVelocity(SomeDeltaTime);
 
             movement.CurrentVelocity.x.Should().BeApproximately(expectedResult, 0.1f);
         }
