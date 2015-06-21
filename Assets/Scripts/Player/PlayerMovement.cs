@@ -35,7 +35,7 @@ public class PlayerMovement
         else
         {
             var xVelocityDifference = desiredXVelocity - CurrentVelocity.x;
-            newVelocity.x = xVelocityDifference * (deltaTime / AccelerationTime);
+            newVelocity.x = xVelocityDifference * Mathf.Min(deltaTime / AccelerationTime, 1.0f);
         }
         CurrentVelocity = newVelocity;
     }
