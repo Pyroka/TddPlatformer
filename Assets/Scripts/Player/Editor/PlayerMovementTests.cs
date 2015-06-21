@@ -40,5 +40,15 @@ namespace Player
 
             movement.CurrentVelocity.y.Should().BeLessThan(firstResult.y);
         }
+
+        [Test]
+        public void ShouldMoveLeftWhenHorizontalInputIsPositive()
+        {
+            var movement = new PlayerMovement {HorizontalInput = 1.0f};
+
+            movement.Update();
+
+            movement.CurrentVelocity.y.Should().BeApproximately(movement.MaxHorizontalSpeed, 0.1f);
+        }
     }
 }
