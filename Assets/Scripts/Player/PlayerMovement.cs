@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class PlayerMovement
 {
     public const float Gravity = -1.0f;
+    public float AccelerationTime { get; set; }
 
     public bool IsOnGround { get; set; }
 
@@ -22,7 +23,7 @@ public class PlayerMovement
         }
         else
         {
-            newVelocity.y += Gravity;
+            newVelocity.y += (Gravity * deltaTime);
         }
 
         newVelocity.x = MaxHorizontalSpeed * HorizontalInput;

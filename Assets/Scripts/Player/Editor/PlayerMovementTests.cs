@@ -61,5 +61,20 @@ namespace Player
 
             movement.CurrentVelocity.x.Should().BeApproximately(expectedResult, 0.1f);
         }
+
+        [Test]
+        public void ShouldAccelerateUpToMaxVelocity()
+        {
+            var movement = new PlayerMovement
+            {
+                HorizontalInput = 1.0f,
+                MaxHorizontalSpeed = 10.0f,
+                AccelerationTime = 1.0f
+            };
+
+            movement.UpdateCurrentVelocity(0.5f);
+
+            movement.CurrentVelocity.x.Should().BeApproximately(5.0f, 0.1f);
+        }
     }
 }
