@@ -34,7 +34,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
 
     private void UpdateAndApplyVelocity()
     {
-        PlayerMovement.Update();
+        PlayerMovement.UpdateCurrentVelocity();
         rigidbody.velocity = PlayerMovement.CurrentVelocity;
     }
 }

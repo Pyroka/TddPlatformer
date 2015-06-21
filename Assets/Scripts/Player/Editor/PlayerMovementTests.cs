@@ -15,7 +15,7 @@ namespace Player
         {
             var movement = new PlayerMovement {IsOnGround = false};
 
-            movement.Update();
+            movement.UpdateCurrentVelocity();
 
             movement.CurrentVelocity.y.Should().BeLessThan(0.0f);
         }
@@ -25,7 +25,7 @@ namespace Player
         {
             var movement = new PlayerMovement { IsOnGround = true };
 
-            movement.Update();
+            movement.UpdateCurrentVelocity();
 
             movement.CurrentVelocity.y.Should().Be(0.0f);
         }
@@ -35,9 +35,9 @@ namespace Player
         {
             var movement = new PlayerMovement { IsOnGround = false };
 
-            movement.Update();
+            movement.UpdateCurrentVelocity();
             var firstResult = movement.CurrentVelocity;
-            movement.Update();
+            movement.UpdateCurrentVelocity();
 
             movement.CurrentVelocity.y.Should().BeLessThan(firstResult.y);
         }
@@ -54,7 +54,7 @@ namespace Player
                 MaxHorizontalSpeed = maxSpeed
             };
 
-            movement.Update();
+            movement.UpdateCurrentVelocity();
 
             movement.CurrentVelocity.x.Should().BeApproximately(expectedResult, 0.1f);
         }
