@@ -27,8 +27,16 @@ public class PlayerMovement
         }
 
         var desiredXVelocity = MaxHorizontalSpeed * HorizontalInput;
-        var xVelocityDifference = desiredXVelocity - CurrentVelocity.x;
-        newVelocity.x = xVelocityDifference * (deltaTime / AccelerationTime);
+        var useInstantAcceleration = AccelerationTime == 0.0f;
+        if (useInstantAcceleration)
+        {
+            newVelocity.x = desiredXVelocity;
+        }
+        else
+        {
+            var xVelocityDifference = desiredXVelocity - CurrentVelocity.x;
+            newVelocity.x = xVelocityDifference * (deltaTime / AccelerationTime);
+        }
         CurrentVelocity = newVelocity;
     }
 }
