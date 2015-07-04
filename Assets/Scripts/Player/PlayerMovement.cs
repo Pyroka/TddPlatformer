@@ -34,8 +34,14 @@ public class PlayerMovement
         }
         else
         {
-            var xVelocityDifference = desiredXVelocity - CurrentVelocity.x;
-            newVelocity.x = xVelocityDifference * Mathf.Min(deltaTime / AccelerationTime, 1.0f);
+            var desiredAcceleration = desiredXVelocity - CurrentVelocity.x;
+            var maxAccelerationPerSecond = MaxHorizontalSpeed / AccelerationTime;
+            var acceleration = desiredAcceleration;
+            if (Mathf.Abs(acceleration) > Mathf.Abs(maxAccelerationPerSecond))
+            {
+                acceleration = maxAccelerationPerSecond * Mathf.Sign(acceleration);
+            }
+            newVelocity.x = Mathf.Clamp(newVelocity.x + (acceleration * deltaTime), -MaxHorizontalSpeed, MaxHorizontalSpeed);
         }
         CurrentVelocity = newVelocity;
     }
