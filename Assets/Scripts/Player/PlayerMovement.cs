@@ -10,7 +10,7 @@ public class PlayerMovement
 
     public bool IsOnGround { get; set; }
 
-    public Vector3 CurrentVelocity { get; private set; }
+    public Vector3 CurrentVelocity { get; set; }
     public float HorizontalInput { get; set; }
     public float MaxHorizontalSpeed { get; set; }
 

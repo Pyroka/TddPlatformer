@@ -63,18 +63,24 @@ namespace Player
         }
 
         [Test]
-        public void ShouldAccelerateUpToMaxHorizontalVelocity()
+        [TestCase(0.0f, 1.0f, 1.0f, 10.0f, TestName = "When stopped, after accelerating full left for AccelerationTime, we should be moving full left")]
+        [TestCase(0.0f, 0.5f, 1.0f, 5.0f, TestName = "When stopped, after accelerating half left for AccelerationTime, we should be moving half left")]
+        [TestCase(0.0f, 0.5f, 1.0f, 5.0f, TestName = "When stopped, after accelerating full left for half AccelerationTime, we should be moving half left")]
+        [TestCase(-10.0f, 1.0f, 1.0f, 0.0f, TestName = "When moving full right, after accelerating full left for AccelerationTime, we should be stopped")]
+        [TestCase(-10.0f, 1.0f, 2.0f, 10.0f, TestName = "When moving full right, after accelerating full left for double AccelerationTime, we should be moving full left")]
+        public void ShouldAccelerateHorizontally(float startXVel, float input, float deltaTime, float expectedXVel)
         {
             var movement = new PlayerMovement
             {
-                HorizontalInput = 1.0f,
+                HorizontalInput = input,
                 MaxHorizontalSpeed = 10.0f,
-                AccelerationTime = 1.0f
+                AccelerationTime = 1.0f, 
+                CurrentVelocity = new Vector3(startXVel, 0.0f, 0.0f)
             };
 
-            movement.UpdateCurrentVelocity(0.5f);
+            movement.UpdateCurrentVelocity(deltaTime);
 
-            movement.CurrentVelocity.x.Should().BeApproximately(5.0f, 0.1f);
+            movement.CurrentVelocity.x.Should().BeApproximately(expectedXVel, 0.1f);
         }
 
         [Test]
